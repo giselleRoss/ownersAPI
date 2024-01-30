@@ -27,7 +27,7 @@ Pool.connect()
 
 const app = express();
 app.use(express.json());
-//app.use(express.static('public'));
+app.use(express.static('public'));
 
 const cars = carsInfo(Pool);
 const owners = ownerInfo(Pool);
