@@ -47,7 +47,7 @@ const displayOwners = async () => {
           ownersList.append(ownerItem);
         });
 
-        $("#ownersCarsContainer").empty().append(ownersList);
+        $("#ownersCarsContainer").append(ownersList);
       } else {
         $("#ownersCarsContainer").text("No owners found.");
       }
