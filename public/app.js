@@ -6,12 +6,13 @@ const displayOwners = async () => {
         const data = await response.json();
 
         if (data && data.rows && data.rows.length > 0) {
+
             const ownersList = $("<ul></ul>").addClass("list-group");
             data.rows.forEach((owner) => {
                 const ownerItem = $("<li></li>")
                     .addClass("list-group-item")
                     .text(owner.name)
-                    .on("click", () => displayCars(owner.id));
+                    .on("click", () => displayCars(owner.id)); 
                 ownersList.append(ownerItem);
             });
 
@@ -31,7 +32,6 @@ const displayCars = async (ownerId) => {
         const data = await response.json();
 
         if (data && data.rows && data.rows.length > 0) {
-
             const carsList = $("<ul></ul>").addClass("list-group");
             data.rows.forEach((car) => {
                 const carItem = $("<li></li>")
@@ -39,6 +39,7 @@ const displayCars = async (ownerId) => {
                     .text(car.model);
                 carsList.append(carItem);
             });
+
             $("#ownersCarsContainer").empty().append(carsList);
         } else {
             $("#ownersCarsContainer").text("No cars found for this owner.");
@@ -48,16 +49,7 @@ const displayCars = async (ownerId) => {
         $("#ownersCarsContainer").text("Error fetching cars.");
     }
 };
-
 $("#searchBtnOwners").on("click", () => {
     selectedOwnerId = null; 
     displayOwners();
-});
-
-$("#searchBtnCars").on("click", () => {
-    if (selectedOwnerId) {
-        displayCars(selectedOwnerId);
-    } else {
-        $("#ownersCarsContainer").text("Please select an owner first.");
-    }
 });
