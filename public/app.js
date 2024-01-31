@@ -58,7 +58,37 @@ const displayOwners = async () => {
       $("#ownersCarsContainer").text("Error fetching owners.");
     }
   };
+  const displayAllOwners = async () => {
+    try {
+        const response = await fetch("https://ownersapi.onrender.com/owners");
+        const data = await response.json();
+        console.log("Data from API:", data);
   
+        if (Array.isArray(data) && data.length > 0) {
+            const ownersList = $("<ul></ul>").addClass("list-group");
+            data.forEach((owner) => {
+                console.log("Owner:", owner);
+              const ownerItem = $("<li></li>")
+                .addClass("list-group-item")
+                .text(owner.name)
+                .on("click", () => {
+                  console.log("Owner clicked:", owner.name);
+                  handleOwnerClick(owner.id);
+                });
+      
+              ownersList.append(ownerItem);
+            });
+            $$("#ownersCarsContainer").empty();
+            $("#ownersCarsContainer").append(ownersList);
+            console.log("Owners list:", ownersList);
+          } else {
+        $("#ownersCarsContainer").text("No cars found in the system.");
+      } 
+    } catch (err) {
+      console.log("Error fetching owners", err);
+      $("#ownersCarsContainer").text("Error fetching owners.");
+    }
+  };
 
 const displayAllCars = async () => {
   try {
