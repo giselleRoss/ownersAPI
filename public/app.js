@@ -1,3 +1,4 @@
+// let selectedOwnerId = null;
 const fetchOwners = async () => {
     try {
       const response = await fetch("https://ownersapi.onrender.com/owners");
@@ -7,31 +8,31 @@ const fetchOwners = async () => {
       if (Array.isArray(data) && data.length > 0) {
         const ownersList = $("<ul></ul>").addClass("list-group");
 
-        const handleOwnerClick = async (ownerId) => {
-          try {
-            const carsResponse = await fetch(
-              `https://ownersapi.onrender.com/owners/${ownerId}/cars`
-            );
-            const carsData = await carsResponse.json();
-            console.log("Cars data from API:", carsData);
+        // const handleOwnerClick = async (ownerId) => {
+        //   try {
+        //     const carsResponse = await fetch(
+        //       `https://ownersapi.onrender.com/owners/${ownerId}/cars`
+        //     );
+        //     const carsData = await carsResponse.json();
+        //     console.log("Cars data from API:", carsData);
   
-            if (Array.isArray(carsData) && carsData.length > 0) {
-              const carsList = $("<ul></ul>").addClass("list-group");
-              carsData.forEach((car) => {
-                const carItem = $("<li></li>")
-                  .addClass("list-group-item")
-                  .text(`Make: ${car.make}, Model: ${car.model}, Year: ${car.year}`);
-                carsList.append(carItem);
-              });
-              $("#ownersCarsContainer").empty().append(carsList);
-            } else {
-              $("#ownersCarsContainer").text("No cars found for this owner.");
-            }
-          } catch (error) {
-            console.log("Error fetching cars for owner", error);
-            $("#ownersCarsContainer").text("Error fetching cars for owner.");
-          }
-        };
+        //     if (Array.isArray(carsData) && carsData.length > 0) {
+        //       const carsList = $("<ul></ul>").addClass("list-group");
+        //       carsData.forEach((car) => {
+        //         const carItem = $("<li></li>")
+        //           .addClass("list-group-item")
+        //           .text(`Make: ${car.make}, Model: ${car.model}, Year: ${car.year}`);
+        //         carsList.append(carItem);
+        //       });
+        //       $("#ownersCarsContainer").empty().append(carsList);
+        //     } else {
+        //       $("#ownersCarsContainer").text("No cars found for this owner.");
+        //     }
+        //   } catch (error) {
+        //     console.log("Error fetching cars for owner", error);
+        //     $("#ownersCarsContainer").text("Error fetching cars for owner.");
+        //   }
+        // };
         data.forEach((owner) => {
           const ownerItem = $("<li></li>")
             .addClass("list-group-item")
