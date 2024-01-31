@@ -83,9 +83,11 @@ const displayAllCars = async () => {
 };
 
 $("#ownersBtn").on("click", () => {
-  selectedOwnerId = null;
-  displayOwners();
-});
+    selectedOwnerId = null;
+    console.log("Owners button clicked");
+    displayOwners();
+  });
+  
 
 $("#carsBtn").on("click", () => {
   selectedOwnerId = null;
