@@ -3,6 +3,7 @@ import pg from "pg";
 import dotenv from "dotenv";
 import { carsInfo } from './getcars.js';
 import { ownerInfo } from './getowners.js';
+import { ownersAndCars } from './owner_cars.js';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(express.static('public'));
 
 const cars = carsInfo(Pool);
 const owners = ownerInfo(Pool);
+const ownerAndCar = ownersAndCars(Pool);
 
 // app.use((req, res, next) => {
 //     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -56,6 +58,9 @@ app.get('/owners/:ownerId', owners.singleOwner);
 app.post('/owners', owners.createOwner);
 app.patch('/owners/:ownerId', owners.updateowner);
 app.delete('/owners/:ownerId', owners.deleteOwner);
+
+app.get('/owners/:ownerId/cars', ownerAndCar.singleOwnerCars)
+app.get('/cars/:carId/owners', ownerAndCar.getCarWithOwner)
 
 // app.get('/api/owners/:ownerId/cars', async(req, res) => {
 //     const ownerId = Number.parseInt(req.params.ownerId);
