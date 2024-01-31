@@ -7,7 +7,7 @@ const displayOwners = async () => {
     const data = await response.json();
     console.log(data);
 
-    if (data && data.length > 0) {
+    if (Array.isArray(data) && data.length > 0) {
       const ownersList = $("<ul></ul>").addClass("list-group");
       data.forEach((owner) => {
         console.log(owner)
@@ -57,7 +57,7 @@ const displayAllCars = async () => {
     const response = await fetch("https://ownersapi.onrender.com/cars");
     const data = await response.json();
 
-    if (data && data.length > 0) {
+    if (Array.isArray(data) && data.length > 0) {
       const allCarsList = $("<ul></ul>").addClass("list-group");
       data.forEach((car) => {
         const carItem = $("<li></li>")
