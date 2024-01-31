@@ -22,9 +22,9 @@ const displayOwners = async () => {
               const carsData = await carsResponse.json();
               console.log(carsData);
 
-              if (carsData && carsData.rows && carsData.rows.length > 0) {
+              if (carsData && carsData.length > 0) {
                 const carsList = $("<ul></ul>").addClass("list-group");
-                carsData.rows.forEach((car) => {
+                carsData.forEach((car) => {
                   const carItem = $("<li></li>")
                     .addClass("list-group-item")
                     .text(car.model);
@@ -57,9 +57,9 @@ const displayAllCars = async () => {
     const response = await fetch("https://ownersapi.onrender.com/cars");
     const data = await response.json();
 
-    if (data && data.rows && data.rows.length > 0) {
+    if (data && data.length > 0) {
       const allCarsList = $("<ul></ul>").addClass("list-group");
-      data.rows.forEach((car) => {
+      data.forEach((car) => {
         const carItem = $("<li></li>")
           .addClass("list-group-item")
           .text(car.model);
