@@ -70,12 +70,11 @@ const displayOwners = async () => {
                 console.log("Owner:", owner);
               const ownerItem = $("<li></li>")
                 .addClass("list-group-item")
-                .text(owner.name)
+                .text(owner.name, owner.job, owner.age)
                 .on("click", () => {
                   console.log("Owner clicked:", owner.name);
                   handleOwnerClick(owner.id);
                 });
-      
               ownersList.append(ownerItem);
             });
             $$("#ownersCarsContainer").empty();
@@ -100,7 +99,7 @@ const displayAllCars = async () => {
       data.forEach((car) => {
         const carItem = $("<li></li>")
           .addClass("list-group-item")
-          .text(car.model);
+          .text(car.make, car.model, car.year);
         allCarsList.append(carItem);
       });
       $("#ownersCarsContainer").empty().append(allCarsList);
