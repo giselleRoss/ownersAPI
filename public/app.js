@@ -7,9 +7,9 @@ const displayOwners = async () => {
     const data = await response.json();
     console.log(data);
 
-    if (data && data.rows && data.rows.length > 0) {
+    if (data && data.length > 0) {
       const ownersList = $("<ul></ul>").addClass("list-group");
-      data.rows.forEach((owner) => {
+      data.forEach((owner) => {
         console.log(owner)
         const ownerItem = $("<li></li>")
           .addClass("list-group-item")
