@@ -36,6 +36,7 @@ const displayOwners = async () => {
         };
   
         data.forEach((owner) => {
+            console.log("Owner:", owner);
           const ownerItem = $("<li></li>")
             .addClass("list-group-item")
             .text(owner.name)
