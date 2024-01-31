@@ -5,7 +5,7 @@ export const ownerInfo = (Pool) => {
         const getAllOwners = 'SELECT * FROM owners';
     try {
         const data = await Pool.query(getAllOwners);
-        res.json(JSON.stringify(data.rows));
+        res.json(data.rows);
     } catch (err) {
         next(err);
     }

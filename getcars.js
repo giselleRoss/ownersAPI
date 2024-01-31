@@ -71,9 +71,9 @@ export const carsInfo = (Pool) => {
     console.log("Changing car with id:", id);
     const carUpdate = `UPDATE cars SET make = COALESCE($1, make), model = COALESCE($2, model), year = COALESCE($3, year) WHERE id = $4 RETURNING *`;
     try {
-      const data = pool.query(carUpdate, [make, model, year, id]);
-      if (data.rows.length == 0) {
-        res.sendStatus(400);
+      const data = Pool.query(carUpdate, [make, model, year, id]);
+      if (data.rows.length === 0) {
+        res.sendStatus(404);
         return;
       }
       console.log("Car updated: \n", data.rows[0]);
