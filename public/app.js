@@ -1,7 +1,4 @@
-let selectedOwnerId = null;
-// let allCars = null;
-
-const displayOwners = async () => {
+const fetchOwners = async () => {
     try {
       const response = await fetch("https://ownersapi.onrender.com/owners");
       const data = await response.json();
@@ -9,6 +6,7 @@ const displayOwners = async () => {
   
       if (Array.isArray(data) && data.length > 0) {
         const ownersList = $("<ul></ul>").addClass("list-group");
+
         const handleOwnerClick = async (ownerId) => {
           try {
             const carsResponse = await fetch(
@@ -34,7 +32,6 @@ const displayOwners = async () => {
             $("#ownersCarsContainer").text("Error fetching cars for owner.");
           }
         };
-  
         data.forEach((owner) => {
           const ownerItem = $("<li></li>")
             .addClass("list-group-item")
@@ -46,8 +43,9 @@ const displayOwners = async () => {
   
           ownersList.append(ownerItem);
         });
-
-        $("#ownersCarsContainer").append(ownersList);
+  
+        // Append ownersList to the container
+        $("#ownersCarsContainer").empty().append(ownersList);
       } else {
         $("#ownersCarsContainer").text("No owners found.");
       }
@@ -56,37 +54,37 @@ const displayOwners = async () => {
       $("#ownersCarsContainer").text("Error fetching owners.");
     }
   };
-
-const displayAllCars = async () => {
-  try {
-    const response = await fetch("https://ownersapi.onrender.com/cars");
-    const data = await response.json();
-
-    if (Array.isArray(data) && data.length > 0) {
-      const allCarsList = $("<ul></ul>").addClass("list-group");
-      data.forEach((car) => {
-        const carItem = $("<li></li>")
-          .addClass("list-group-item")
-          .text(`Make: ${car.make}, Model: ${car.model}, Year: ${car.year}`);
-        allCarsList.append(carItem);
-      });
-      $("#ownersCarsContainer").empty().append(allCarsList);
-    } else {
-      $("#ownersCarsContainer").text("No cars found in the system.");
+  
+  const fetchAllCars = async () => {
+    try {
+      const response = await fetch("https://ownersapi.onrender.com/cars");
+      const data = await response.json();
+  
+      if (Array.isArray(data) && data.length > 0) {
+        const allCarsList = $("<ul></ul>").addClass("list-group");
+        data.forEach((car) => {
+          const carItem = $("<li></li>")
+            .addClass("list-group-item")
+            .text(`Make: ${car.make}, Model: ${car.model}, Year: ${car.year}`);
+          allCarsList.append(carItem);
+        });
+        $("#ownersCarsContainer").empty().append(allCarsList);
+      } else {
+        $("#ownersCarsContainer").text("No cars found in the system.");
+      }
+    } catch (err) {
+      console.log("Error fetching all cars", err);
+      $("#ownersCarsContainer").text("Error fetching all cars.");
     }
-  } catch (err) {
-    console.log("Error fetching all cars", err);
-    $("#ownersCarsContainer").text("Error fetching all cars.");
-  }
-};
-
-$("#ownersBtn").on("click", () => {
-  selectedOwnerId = null;
-  console.log("Owners button clicked");
-  displayOwners();
-});
-
-$("#carsBtn").on("click", () => {
-  selectedOwnerId = null;
-  displayAllCars();
-});
+  };
+  
+  $("#ownersBtn").on("click", () => {
+    selectedOwnerId = null;
+    console.log("Owners button clicked");
+    fetchOwners();
+  });
+  
+  $("#carsBtn").on("click", () => {
+    selectedOwnerId = null;
+    fetchAllCars();
+  });
