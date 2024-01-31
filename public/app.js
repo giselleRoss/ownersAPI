@@ -39,12 +39,13 @@ const fetchOwners = async () => {
             //   console.log("Owner clicked:", owner.name);
             //   handleOwnerClick(owner.id);
             // });
-            $("#ownersCarsContainer").empty().append(ownerItem);
+            ownersList.append(ownerItem);
             })
+            $("#ownersCarsContainer").empty().append(ownerItem);
         } else {
          $("#ownersCarsContainer").text("No owners found.");
              }
-        //   ownersList.append(ownerItem);
+          
             } catch (err) {
       console.log("Error fetching owners", err);
       $("#ownersCarsContainer").text("Error fetching owners.");
